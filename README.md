@@ -32,4 +32,4 @@ console.log(characters);
 
 ## Thanks
 
-[Zyla](https://github.com/Eilyz/Kanade) and [MRDGH2821](https://github.com/MRDGH2821) for helping figure out how the API works and what extra endpoints we needed.
+[Zyla](https://github.com/Eilyz) and [MRDGH2821](https://github.com/MRDGH2821) for helping figure out how the API works and what extra endpoints we needed.
