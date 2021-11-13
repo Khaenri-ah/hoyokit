@@ -10,37 +10,79 @@ const server = uid => ({
   9: 'os_cht',
 })[uid.charAt(0)];
 
+parseUID = uid => uid.toString();
+
 module.exports = class HoyoKit {
+  /**
+   * The main HoyoKit class.
+   * @constructor
+   * @exports
+   * @param {string} cookies - to get your cookies, go to https://webstatic-sea.mihoyo.com/app/community-game-records-sea and input `document.cookie` in your browser's developer console. You need the entire string it returns. 
+   */
   constructor(cookies) {
     this.cookie = cookies;
   }
 
-  async getUserInfo(uid) {
+  /**
+   * Fetch a MiHoYo account.
+   * @param {string|number} uid - A MiHoYo UID.
+   * @returns {Promise<object>} MiHoYo account data.
+   */
+  async mihoyo(uid) {
+    uid = parseUID(uid);
     const res = await this.request('get', 'community/user/wapi/getUserFullInfo', { uid });
     return res.data;
   }
 
-  async getCharacterList(uid) {
+  /**
+   * Fetch a list of Genshin accounts linked to a MiHoYo account.
+   * @param {string|number} uid - A MiHoYo UID.
+   * @returns {Promise<object[]>} Array of Genshin account data.
+   */
+  async accounts(uid) {
+    uid = parseUID(uid);
     const res = await this.request('get', 'game_record/card/wapi/getGameRecordCard', { uid });
     return res.data.list;
   }
 
-  async getCharacterInfo(uid) {
+  /**
+   * Fetch a Genshin account.
+   * @param {string|number} uid - A Genshin UID.
+   * @returns {Promise<object>} Genshin account data.
+   */
+  async genshin(uid) {
+    uid = parseUID(uid);
     const res = await this.request('get', 'game_record/genshin/api/index', { server: server(uid), role_id: uid });
     return res.data;
   }
 
-  async getAbyssInfo(uid, id) {
+  /**
+   * Fetch the Spiral Abyss stats of a Genshin account.
+   * @param {string|number} uid - A Genshin UID.
+   * @param {number} [id=1] - The Abyss period ID, 1: current abyss, 2: previous abyss, etc.
+   * @returns {Promise<object>} Abyss data.
+   */
+  async abyss(uid, id=1) {
+    uid = parseUID(uid);
     const res = await this.request('get', 'game_record/genshin/api/spiralAbyss', { server: server(uid), role_id: uid, schedule_type: id });
     return res.data;
   }
 
-  async getFullCharacterInfo(uid) {
-    const characters = await this.getCharacterInfo(uid).then(d=>d.avatars.map(a=>a.id));
+  /**
+   * Fetch detailed information on all the characters a Genshin account has.
+   * @param {String|number} uid - A Genshin UID.
+   * @returns {Promise<Object[]>} Array of character data
+   */
+  async characters(uid) {
+    uid = parseUID(uid);
+    const characters = await this.genshin(uid).then(d=>d.avatars.map(a=>a.id));
     const res = await this.request('post', 'game_record/genshin/api/character', { server: server(uid), role_id: uid, character_ids: characters });
-    return res.data;
+    return res.data.avatars;
   }
 
+  /**
+   * @private
+   */
   async request(method, path, data) {
     let query, body
     if (method.toLowerCase() === 'get') {

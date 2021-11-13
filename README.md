@@ -13,41 +13,23 @@ features:
 npm i hoyokit
 ```
 
-## Usage
-
-### Initialization
+## Usage Example
 ```js
+// this example assumes async is allowed in the current scope
 const HoyoKit = require('hoyokit');
+
+// to get your cookies, go to https://webstatic-sea.mihoyo.com/app/community-game-records-sea and input `document.cookie` in your browser's developer console. You need the entire string it returns.
 const hoyo = new HoyoKit('YOUR COOKIES GO HERE');
-```
-to get your cookies, go to https://webstatic-sea.mihoyo.com/app/community-game-records-sea and input `document.cookie` in your browser's developer console. You need the entire string it returns.
 
-### MiHoYo account details
-account info for a MiHoYo account
-```js
-const data = await hoyo.getUserInfo('mihoyo uid');
-```
+const accounts = await hoyo.accounts('000000');
 
-### Genshin account list
-a list of all the Genshin accounts linked to a MiHoYo account
-```js
-const data = await hoyo.getCharacterList('mihoyo uid');
+const genshin = await hoyo.genshin(accounts[0].game_role_id);
+console.log(genshin);
+
+const characters = await hoyo.characters(accounts[0].game_role_id);
+console.log(characters);
 ```
 
-### Genshin account details
-account info for a Genshin account
-```js
-const data = await hoyo.getCharacterInfo('genshin uid');
-```
+## Thanks
 
-### spiral abyss stats
-spiral abyss stats for a Genshin account
-```js
-// 1: current abyss, 2: previous abyss, etc 
-const data = await hoyo.getAbyssInfo('genshin uid', 1);
-```
-
-### full Character stats
-full stats on all the characters of a Genshin account
-```js
-const data = await hoyo.getFullCharacterInfo('genshin uid');
+[Zyla](https://github.com/Eilyz/Kanade) and [MRDGH2821](https://github.com/MRDGH2821) for helping figure out how the API works and what extra endpoints we needed.
