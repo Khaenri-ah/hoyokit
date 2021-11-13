@@ -1,7 +1,7 @@
 {
   "name": "hoyokit",
   "description": "A partial rewrite of @genshin-kit/core",
-  "version": "v1.0.1",
+  "version": "v1.0.2",
   "type": "commonjs",
   "main": "./index.js",
   "dependencies": {

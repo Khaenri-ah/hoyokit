@@ -71,7 +71,7 @@ module.exports = class HoyoKit {
   /**
    * Fetch detailed information on all the characters a Genshin account has.
    * @param {String|number} uid - A Genshin UID.
-   * @returns {Promise<Object[]>} Array of character data
+   * @returns {Promise<object[]>} Array of character data
    */
   async characters(uid) {
     uid = parseUID(uid);
