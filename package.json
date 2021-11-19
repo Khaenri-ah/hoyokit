@@ -1,11 +1,10 @@
 {
   "name": "hoyokit",
   "description": "A partial rewrite of @genshin-kit/core",
-  "version": "v1.0.2",
+  "version": "v2.0.0",
   "type": "commonjs",
   "main": "./index.js",
   "dependencies": {
-    "axios": "^0.24.0",
-    "node-fetch": "^2.6.6"
+    "axios": "^0.24.0"
   }
 }
