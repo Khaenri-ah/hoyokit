@@ -1,7 +1,6 @@
 const HoyoKit = require('../HoyoKit.js');
 const GenshinAccount = require('./GenshinAccount.js');
 const Character = require('./Character.js');
-const utils = require('../utils.js');
 
 module.exports = class Artifact {
   /**

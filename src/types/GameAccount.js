@@ -1,7 +1,6 @@
 const HoyoKit = require('../HoyoKit.js');
 const HoyolabAccount = require('./HoyolabAccount.js');
 const GenshinAccount = require('./GenshinAccount.js');
-const utils = require('../utils.js');
 
 module.exports = class GameAccount {
   /**

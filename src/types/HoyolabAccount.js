@@ -104,7 +104,7 @@ module.exports = class HoyolabAccount {
   }
 
   /**
-   * 
+   * Fetches all game accounts connected to this user
    * @param {0|1|2} full 
    * @returns {GameAccount[]}
    */
@@ -115,6 +115,7 @@ module.exports = class HoyolabAccount {
       if (full&&acc.game==2) await acc.fetchGenshinAccount(full>1);
       return acc;
     }));
+    /** @type {GameAccount[]} */
     this.gameAccounts = list;
     return list;
   }
